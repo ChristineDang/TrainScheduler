@@ -16,15 +16,55 @@
 
     <body>
         <header>
-            <div class="header">
-                <h1 id="title">Florida Train Scheduler</h1>
+            <div class="jumbotron">
+                <h1 id="title">Anytime is Train Time</h1>
+                <h4 id="quote">Choo Choo. Chee Chee.</h4>
             </div>
         </header>
 
         <br>
-        
-        <div>
 
+        <div class="content-box">
+            <div class ="content" id="trainSchedule">Current Train Schedule</div>
+            <br>
+                <table style="width:100%">
+                    <tr>
+                        <th>Train Name</th>
+                        <th>Destination</th>
+                        <th>Frequency (min)</th>
+                        <th>Next Arrival</th>
+                        <th>Minutes Away</th>
+                    </tr>
+
+                    <tr>
+                        <td class="deployedName"></td>
+                        <td class="deployedDestination"></td>
+                        <td class="deployedFrequency"></td>
+                        <td class="deployedArrival"></td>
+                        <td class="deployedMinutesAway"></td>
+                    </tr>
+                </table>
+        </div>
+
+        <br>
+
+        <div class="content-box">
+                <div id="addTrain">Add Train</div>
+                    <br>
+                    <div id="Name"><strong>Train Name</strong></div>
+                    <input class="TextBox" type="text">
+                    <br>
+                    <div id="destination"><strong>Destination</strong></div>
+                    <input class="TextBox" type="text">
+                    <br>
+                    <div id="time"><strong>First Train Time (HH:mm - miliatry time)</strong></div>
+                    <input class="TextBox" type="text">
+                    <br>
+                    <div id="frequency"><strong>Frequency (min)</strong></div>
+                    <input class="TextBox" type="text">
+                    <br>
+                    <br>
+                    <button id="submit">Submit</button>
         </div>
 
         <!-- Link to javascript-->
