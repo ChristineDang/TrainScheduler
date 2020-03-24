@@ -10,6 +10,9 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
           <!-- Link to jQuery Library -->
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Firebase References -->
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
           <!-- Link to style.css-->
           <link rel="stylesheet" type="text/css" href="assets/css/style.css">  
     </head>
@@ -27,7 +30,7 @@
         <div class="content-box">
             <div class ="content" id="trainSchedule">Current Train Schedule</div>
             <br>
-                <table style="width:100%">
+                <table id="trainTable" style="width:100%">
                     <tr>
                         <th>Train Name</th>
                         <th>Destination</th>
@@ -37,11 +40,11 @@
                     </tr>
 
                     <tr>
-                        <td class="deployedName"></td>
-                        <td class="deployedDestination"></td>
-                        <td class="deployedFrequency"></td>
-                        <td class="deployedArrival"></td>
-                        <td class="deployedMinutesAway"></td>
+                        <td id="deployedName"></td>
+                        <td id="deployedDestination"></td>
+                        <td id="deployedFrequency"></td>
+                        <td id="deployedArrival" class="nextArrival"></td>
+                        <td id="deployedMinutesAway" class="minutesAway"></td>
                     </tr>
                 </table>
         </div>
@@ -52,16 +55,16 @@
                 <div id="addTrain">Add Train</div>
                     <br>
                     <div id="Name"><strong>Train Name</strong></div>
-                    <input class="TextBox" type="text">
+                    <input class="TextBox" id="name" type="text">
                     <br>
-                    <div id="destination"><strong>Destination</strong></div>
-                    <input class="TextBox" type="text">
+                    <div id="Destination"><strong>Destination</strong></div>
+                    <input class="TextBox" id="destination" type="text">
                     <br>
-                    <div id="time"><strong>First Train Time (HH:mm - miliatry time)</strong></div>
-                    <input class="TextBox" type="text">
+                    <div id="Time"><strong>First Train Time (HH:mm - miliatry time)</strong></div>
+                    <input class="TextBox" id="time" type="text">
                     <br>
-                    <div id="frequency"><strong>Frequency (min)</strong></div>
-                    <input class="TextBox" type="text">
+                    <div id="Frequency"><strong>Frequency (min)</strong></div>
+                    <input class="TextBox" id="frequency" type="text">
                     <br>
                     <br>
                     <button id="submit">Submit</button>
