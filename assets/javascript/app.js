@@ -20,6 +20,7 @@ var db = firebase.database();
 // var frequency = 0;
 var nxtArvl = 0;
 var minAway = 0;
+var trainId = 0;
 
   db.ref().on("value", function(snapshot) {
       //if data is stored in firebase, set the variables for our train details = our stored values//
@@ -34,53 +35,65 @@ var minAway = 0;
       console.log("Failed reading" + errorObj.code);
   });
 
-  //will do math here to calculate minutes away and destination arrival time
-    //not working. Thinking more math has to be included, not sure of which syntax to use
-        $("#minutesAway").val();
-        var date = date.val();
-        //.val() property is undefined. Tried, 
-        date.setMinutes(date.getMinutes() + freq);
-        var minAway = snap.child("minutesAway").val();
-        
-        $("#minutesAway").append("<tr><td>" + minAway + "</td></tr>");
-
-
   //submit function
   $("#submit").on("click", function(event){
       event.preventDefault();
         var trainName = $("#name").val();
         var dest = $("#destination").val();
-        var fstTime = parseInt($("#time").val());
+        var fstTime = $("#time").val();
         var freq = parseInt($("#frequency").val());
         // var nxtArvl = parseInt($("#nextArrival")).val();
         // var minAway = parseInt($("#minutesAway")).val();
 
-        console.log(trainName);
-        console.log(dest);
-        db.ref().set({
+                    //will do math here to calculate minutes away and destination arrival time
+        //BROKEN. Thinking more math has to be included, not sure of which syntax to use
+        //ISSUE: displaying current time + frequency in the "minutes away" instead of the 
+            //remaining minutes away from current time
+                // $("#minutesAway").val();
+                var date = new Date();
+                console.log(date)
+                //.val() property is undefined. Tried, 
+                date.setMinutes(date.getMinutes() + freq);
+                console.log(date)
+                var minAway = date.getHours() + ":" + date.getMinutes();
+                //minAway = snap.child("minutesAway").val();
+                console.log(trainName);
+                console.log(dest);
+
+        db.ref("trains/" + ("train" + trainId)).set({
             tName: trainName,
             destination: dest,
             initTime: fstTime,
             frequency: freq,
-            minutesAway: minAway
+            arrivalTime: minAway
         });
-
+        //this is where I itterate my custom key in the Firebase
+         //Data pushed to html table, HOWEVER, when you refresh the page, 
+         //it resets the Firebase and overwrites the information...
+            //next step is to continue appending data.set() with the correct/next custom key
+        trainId++;
+        document.getElementById("addTrain").reset();
         //data is storing in Firebase correctly!
+
+
+    })
         //pushing info onto table in html
-        var firebaseRef = firebase.database().ref().child("users");
+        var firebaseRef = firebase.database().ref().child("trains");
 
             firebaseRef.on("child_added", snap => {
                 
-            var tName = snap.child("$deployedName").val();
-            var dest = snap.child("#deployedDestination").val();
-            var fstTime = snap.child("#deployedArrival").val();
-            var freq = snap.child("#deployedFrequency").val();
+            var tName = snap.child("tName").val();
+            var dest = snap.child("destination").val();
+            var fstTime = snap.child("initTime").val();
+            var freq = snap.child("frequency").val();
+            var minAway = snap.child("arrivalTime").val();
+                
 
-            $("#trainTable").append("<tr><td>" + tName + "</td><td>" + dest + "</td><td>" + fstTime + "</td><td>" + freq + "</td></tr>");
+            $("#trainTable").append("<tr><td>" + tName + "</td><td>" + dest + "</td><td>" + fstTime + "</td><td>" + freq + "</td><td>" + minAway + "</td></tr>");
             });
-        //not working :( data is going onto the Firebase correctly, but not pushing the information to the table in the html
+        //IT WORKS!
+    
 
+    
 
 //empty the input for the next submit
-
-    })
